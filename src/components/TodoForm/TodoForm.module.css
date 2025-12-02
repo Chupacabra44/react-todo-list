@@ -52,3 +52,12 @@
 .FormField textarea {
   resize: none;
 }
+
+.container {
+  display: flex;
+  justify-content: space-between;
+
+  button {
+    align-self: center;
+  }
+}
