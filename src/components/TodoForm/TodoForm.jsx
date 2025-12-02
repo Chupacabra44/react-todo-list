@@ -1,6 +1,6 @@
 import styles from "./TodoForm.module.css";
 
-const TodoForm = () => {
+const TodoForm = ({ onCreate }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -9,13 +9,15 @@ const TodoForm = () => {
       return;
     }
 
-    console.log({
+    onCreate({
       name: elements.name.value,
       description: elements.description.value,
       deadlne: elements.deadline.value,
       priority: elements.priority.value,
       completed: false,
     });
+
+    event.target.reset();
   };
 
   return (
