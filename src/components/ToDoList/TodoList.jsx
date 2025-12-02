@@ -1,3 +1,4 @@
+import { PRIORITIES, PRIORITY_DEFAULT } from "../../constants/priorities";
 import styles from "./ToDoList.module.css";
 
 const TodoList = ({ todos }) => {
@@ -24,7 +25,12 @@ const TodoList = ({ todos }) => {
                   <span className={styles.Description}>{todo.description}</span>
                 )}
                 <div className={styles.AdditionalInfo}>
-                  {todo.deadline} {todo.priority !== "none" && todo.priority}
+                  {todo.deadline}{" "}
+                  {todo.priority !== PRIORITY_DEFAULT && (
+                    <span style={{ color: PRIORITIES[todo.priority]?.color }}>
+                      {PRIORITIES[todo.priority]?.label}
+                    </span>
+                  )}
                 </div>
               </div>
             </div>
