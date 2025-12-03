@@ -48,6 +48,12 @@ function App() {
     ]);
   };
 
+  const handleUpdate = (id, newTodo) => {
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) => (todo.id === id ? newTodo : todo))
+    );
+  };
+
   return (
     <div className={styles.App}>
       <header className={styles.Header}>
@@ -60,7 +66,7 @@ function App() {
       </header>
       <div className={styles.AppContainer}>
         <TodoForm onCreate={handleCreate} />
-        <TodoList todos={todos} />
+        <TodoList todos={todos} onUpdate={handleUpdate} />
       </div>
     </div>
   );
