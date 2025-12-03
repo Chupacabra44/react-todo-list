@@ -44,7 +44,7 @@ function App() {
   const handleCreate = (newTodo) => {
     setTodos((prevTodo) => [
       ...prevTodo,
-      { id: `${prevTodo.length + 1}`, newTodo },
+      { id: `${prevTodo.length + 1}`, ...newTodo },
     ]);
   };
 
@@ -52,6 +52,10 @@ function App() {
     setTodos((prevTodos) =>
       prevTodos.map((todo) => (todo.id === id ? newTodo : todo))
     );
+  };
+
+  const handleDelete = (id) => {
+    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
   };
 
   return (
@@ -66,7 +70,11 @@ function App() {
       </header>
       <div className={styles.AppContainer}>
         <TodoForm onCreate={handleCreate} />
-        <TodoList todos={todos} onUpdate={handleUpdate} />
+        <TodoList
+          todos={todos}
+          onUpdate={handleUpdate}
+          onDelete={handleDelete}
+        />
       </div>
     </div>
   );

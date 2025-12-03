@@ -3,7 +3,7 @@ import { PRIORITIES, PRIORITY_DEFAULT } from "../../constants/priorities";
 import ToDoFormFields from "../ToDoFormFields/ToDoFormFields";
 import styles from "./TodoListItem.module.css";
 
-const TodoListItem = ({ todo, onUpdate }) => {
+const TodoListItem = ({ todo, onUpdate, onDelete }) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const handleCompleted = (event) => {
@@ -54,6 +54,7 @@ const TodoListItem = ({ todo, onUpdate }) => {
       </div>
       <div className={styles.Controls}>
         <button onClick={() => setIsEditing(true)}>📝</button>
+        <button onClick={() => onDelete(todo.id)}>🗑️</button>
       </div>
     </div>
   );

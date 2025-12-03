@@ -17,7 +17,7 @@ const TodoForm = ({ onCreate }) => {
     onCreate({
       name: elements.name.value,
       description: elements.description?.value ?? "",
-      deadlne: elements.deadline?.value ?? "",
+      deadline: elements.deadline?.value ?? "",
       priority: elements.priority?.value ?? PRIORITY_DEFAULT,
       completed: false,
     });
