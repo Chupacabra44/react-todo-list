@@ -1,9 +1,9 @@
 import { PRIORITIES, PRIORITY_DEFAULT } from "../../constants/priorities";
 import styles from "./ToDoFormFields.module.css";
 
-const ToDoFormFields = ({ show }) => {
+const ToDoFormFields = ({ todo, show = true }) => {
   return (
-    <div className={styles.FormFields}>
+    <div style={{ width: "100%" }}>
       <div className={styles.FormField}>
         <input
           type="text"
@@ -11,6 +11,7 @@ const ToDoFormFields = ({ show }) => {
           placeholder="Name*"
           name="name"
           autoComplete="off"
+          defaultValue={todo?.name}
         />
       </div>
 
@@ -22,19 +23,25 @@ const ToDoFormFields = ({ show }) => {
               placeholder="Description"
               name="description"
               rows="3"
+              defaultValue={todo?.description}
             />
           </div>
 
           <div className={styles.FormGroup}>
             <div className={styles.FormField}>
               <label htmlFor="deadline">Deadline</label>
-              <input type="date" id="deadline" name="deadline" />
+              <input
+                type="date"
+                id="deadline"
+                name="deadline"
+                defaultValue={todo?.deadline}
+              />
             </div>
 
             <div className={styles.FormField}>
               <label htmlFor="priority">Priority</label>
               <select
-                defaultValue={PRIORITY_DEFAULT}
+                defaultValue={todo?.priority ?? PRIORITY_DEFAULT}
                 id="priority"
                 name="priority"
               >
