@@ -10,6 +10,25 @@ const TodoListItem = ({ todo, onUpdate }) => {
     onUpdate(todo.id, { ...todo, completed: event.target.checked });
   };
 
+  const handleEdit = (event) => {
+    event.preventDefault();
+
+    const { elements } = event.target;
+    if (elements.name.value === "") {
+      return;
+    }
+
+    onUpdate(todo.id, {
+      name: elements.name.value,
+      description: elements.description.value,
+      deadlne: elements.deadline.value,
+      priority: elements.priority.value,
+      completed: todo.completed,
+    });
+
+    setIsEditing(false);
+  };
+
   const viewingTemplate = (
     <div className={styles.Content}>
       <input
@@ -40,7 +59,11 @@ const TodoListItem = ({ todo, onUpdate }) => {
   );
 
   const editingTemplate = (
-    <form className={styles.Content} onReset={() => setIsEditing(false)}>
+    <form
+      className={styles.Content}
+      onReset={() => setIsEditing(false)}
+      onSubmit={handleEdit}
+    >
       <ToDoFormFields todo={todo} />
       <div className={styles.Controls}>
         <input type="submit" value="💾" />
