@@ -29,30 +29,6 @@
   gap: 4px;
   align-items: flex-start;
 }
-
-.FormField {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  flex-grow: 1;
-  flex-basis: 50%;
-  justify-content: center;
-}
-
-.FormField label {
-  font-size: 14px;
-}
-
-.FormField input,
-.FormField textarea,
-.FormField select {
-  width: 100%;
-}
-
-.FormField textarea {
-  resize: none;
-}
-
 .container {
   display: flex;
   justify-content: space-between;
