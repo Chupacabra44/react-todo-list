@@ -33,3 +33,10 @@
 .FormField textarea {
   resize: none;
 }
+
+input[aria-invalid="true"],
+textarea[aria-invalid="true"],
+select[aria-invalid="true"] {
+  border-color: salmon;
+  outline-color: salmon;
+}

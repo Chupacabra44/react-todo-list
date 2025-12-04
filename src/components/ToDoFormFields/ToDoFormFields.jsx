@@ -11,6 +11,7 @@ const ToDoFormFields = ({ todo = {}, show = true, register, errors = {} }) => {
           placeholder="Name*"
           autoComplete="off"
           defaultValue={todo.name}
+          aria-invalid={!!errors.name}
           {...register("name", {
             required: "Name is required",
             minLength: {
@@ -23,7 +24,11 @@ const ToDoFormFields = ({ todo = {}, show = true, register, errors = {} }) => {
             },
           })}
         />
-        {!!errors.name && errors.name.message}
+        {!!errors.name && (
+          <span style={{ fontSize: "10px", color: "red", marginLeft: "5px" }}>
+            {errors.name.message}
+          </span>
+        )}
       </div>
 
       {show && (
@@ -34,6 +39,7 @@ const ToDoFormFields = ({ todo = {}, show = true, register, errors = {} }) => {
               placeholder="Description"
               rows="3"
               defaultValue={todo.description}
+              aria-invalid={!!errors.description}
               {...register("description", {
                 maxLength: {
                   value: 200,
@@ -42,7 +48,13 @@ const ToDoFormFields = ({ todo = {}, show = true, register, errors = {} }) => {
                 },
               })}
             />
-            {!!errors.description && errors.description.message}
+            {!!errors.description && (
+              <span
+                style={{ fontSize: "10px", color: "red", marginLeft: "5px" }}
+              >
+                {errors.description.message}
+              </span>
+            )}
           </div>
 
           <div className={styles.FormGroup}>
@@ -52,6 +64,7 @@ const ToDoFormFields = ({ todo = {}, show = true, register, errors = {} }) => {
                 type="date"
                 id="deadline"
                 defaultValue={todo.deadline}
+                aria-invalid={!!errors.deadline}
                 {...register("deadline", {
                   min: !todo.id && {
                     value: new Date().toISOString().split("T")[0],
@@ -59,7 +72,13 @@ const ToDoFormFields = ({ todo = {}, show = true, register, errors = {} }) => {
                   },
                 })}
               />
-              {!!errors.deadline && errors.deadline.message}
+              {!!errors.deadline && (
+                <span
+                  style={{ fontSize: "10px", color: "red", marginLeft: "5px" }}
+                >
+                  {errors.deadline.message}
+                </span>
+              )}
             </div>
 
             <div className={styles.FormField}>
@@ -67,6 +86,7 @@ const ToDoFormFields = ({ todo = {}, show = true, register, errors = {} }) => {
               <select
                 defaultValue={todo.priority ?? PRIORITY_DEFAULT}
                 id="priority"
+                aria-invalid={!!errors.priority}
                 {...register("priority", {
                   validate: (value) =>
                     Object.keys(PRIORITIES).includes(value) ||
