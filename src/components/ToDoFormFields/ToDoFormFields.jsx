@@ -12,6 +12,9 @@ const ToDoFormFields = ({ todo, show = true }) => {
           name="name"
           autoComplete="off"
           defaultValue={todo?.name}
+          required
+          minLength={3}
+          maxLength={50}
         />
       </div>
 
@@ -24,6 +27,7 @@ const ToDoFormFields = ({ todo, show = true }) => {
               name="description"
               rows="3"
               defaultValue={todo?.description}
+              maxLength={200}
             />
           </div>
 
@@ -35,6 +39,7 @@ const ToDoFormFields = ({ todo, show = true }) => {
                 id="deadline"
                 name="deadline"
                 defaultValue={todo?.deadline}
+                min={new Date().toISOString().split("T")[0]}
               />
             </div>
 
