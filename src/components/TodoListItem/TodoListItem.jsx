@@ -1,30 +1,19 @@
 import { useState } from "react";
 import { PRIORITIES, PRIORITY_DEFAULT } from "../../constants/priorities";
+import { useForm } from "react-hook-form";
 import ToDoFormFields from "../ToDoFormFields/ToDoFormFields";
 import styles from "./TodoListItem.module.css";
 
 const TodoListItem = ({ todo, onUpdate, onDelete }) => {
   const [isEditing, setIsEditing] = useState(false);
+  const { register, handleSubmit } = useForm();
 
   const handleCompleted = (event) => {
     onUpdate(todo.id, { ...todo, completed: event.target.checked });
   };
 
-  const handleEdit = (event) => {
-    event.preventDefault();
-
-    const { elements } = event.target;
-    if (elements.name.value === "") {
-      return;
-    }
-
-    onUpdate(todo.id, {
-      name: elements.name.value,
-      description: elements.description.value,
-      deadlne: elements.deadline.value,
-      priority: elements.priority.value,
-      completed: todo.completed,
-    });
+  const handleEdit = (data) => {
+    onUpdate(todo.id, data);
 
     setIsEditing(false);
   };
@@ -63,9 +52,9 @@ const TodoListItem = ({ todo, onUpdate, onDelete }) => {
     <form
       className={styles.Content}
       onReset={() => setIsEditing(false)}
-      onSubmit={handleEdit}
+      onSubmit={handleSubmit(handleEdit)}
     >
-      <ToDoFormFields todo={todo} />
+      <ToDoFormFields todo={todo} register={register} />
       <div className={styles.Controls}>
         <input type="submit" value="💾" />
         <input type="reset" value="❌" />
