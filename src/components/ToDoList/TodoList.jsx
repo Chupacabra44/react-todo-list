@@ -9,9 +9,9 @@ const TodoList = ({ todos, onUpdate, onDelete }) => {
         <p>Sorry, you don't have any to-do's</p>
       ) : (
         <ul className={styles.TodoList}>
-          {todos.map((todo) => (
+          {todos.map((todo, index) => (
             <TodoListItem
-              key={todo.id}
+              key={index}
               todo={todo}
               onUpdate={onUpdate}
               onDelete={onDelete}

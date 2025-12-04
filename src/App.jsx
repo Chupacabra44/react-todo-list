@@ -41,6 +41,7 @@ const TODOS_DEFAULT = [
 
 function App() {
   const [todos, setTodos] = useState(TODOS_DEFAULT);
+  const [filters, setFilters] = useState({});
 
   const handleCreate = (newTodo) => {
     setTodos((prevTodo) => [
@@ -59,6 +60,15 @@ function App() {
     setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
   };
 
+  const filterTodos = (todo) => {
+    const { completed, priority } = filters;
+
+    return (
+      (completed === "" || todo.completed === completed) &&
+      (priority === "" || todo.priority === priority)
+    );
+  };
+
   return (
     <div className={styles.App}>
       <header className={styles.Header}>
@@ -71,9 +81,9 @@ function App() {
       </header>
       <div className={styles.AppContainer}>
         <TodoForm onCreate={handleCreate} />
-        <TodoFilters />
+        <TodoFilters onFilter={setFilters} />
         <TodoList
-          todos={todos}
+          todos={todos.filter(filterTodos)}
           onUpdate={handleUpdate}
           onDelete={handleDelete}
         />
