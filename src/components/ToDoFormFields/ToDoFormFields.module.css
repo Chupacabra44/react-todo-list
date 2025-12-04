@@ -1,3 +1,16 @@
+.FormFields {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 4px;
+}
+
+.FormGroup {
+  display: flex;
+  gap: 4px;
+  align-items: flex-start;
+}
+
 .FormField {
   display: flex;
   flex-direction: column;

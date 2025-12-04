@@ -6,7 +6,12 @@ import ToDoFormFields from "../ToDoFormFields/ToDoFormFields";
 
 const TodoForm = ({ onCreate }) => {
   const [show, setShow] = useState("Show");
-  const { register, handleSubmit, reset } = useForm({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
       description: "",
       deadline: "",
@@ -34,7 +39,7 @@ const TodoForm = ({ onCreate }) => {
       </div>
 
       <form className={styles.Form} onSubmit={handleSubmit(handleCreate)}>
-        <ToDoFormFields register={register} show={show} />
+        <ToDoFormFields register={register} show={show} errors={errors} />
 
         <input type="submit" value="Add" />
       </form>

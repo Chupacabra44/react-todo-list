@@ -6,7 +6,13 @@ import styles from "./TodoListItem.module.css";
 
 const TodoListItem = ({ todo, onUpdate, onDelete }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: todo,
+  });
 
   const handleCompleted = (event) => {
     onUpdate(todo.id, { ...todo, completed: event.target.checked });
@@ -27,6 +33,7 @@ const TodoListItem = ({ todo, onUpdate, onDelete }) => {
         onChange={handleCompleted}
         className={styles.Status}
       />
+
       <div className={styles.Info}>
         {todo.name}
         {todo.description && (
@@ -35,8 +42,8 @@ const TodoListItem = ({ todo, onUpdate, onDelete }) => {
         <div className={styles.AdditionalInfo}>
           {todo.deadline}{" "}
           {todo.priority !== PRIORITY_DEFAULT && (
-            <span style={{ color: PRIORITIES[todo.priority]?.color }}>
-              {PRIORITIES[todo.priority]?.label}
+            <span style={{ color: PRIORITIES[todo.priority].color }}>
+              {PRIORITIES[todo.priority].label}
             </span>
           )}
         </div>
@@ -54,7 +61,7 @@ const TodoListItem = ({ todo, onUpdate, onDelete }) => {
       onReset={() => setIsEditing(false)}
       onSubmit={handleSubmit(handleEdit)}
     >
-      <ToDoFormFields todo={todo} register={register} />
+      <ToDoFormFields todo={todo} register={register} errors={errors} />
       <div className={styles.Controls}>
         <input type="submit" value="💾" />
         <input type="reset" value="❌" />
