@@ -26,20 +26,45 @@ function App() {
   }, []);
 
   const handleCreate = (newTodo) => {
-    setTodos((prevTodo) => [
-      ...prevTodo,
-      { id: `${prevTodo.length + 1}`, ...newTodo },
-    ]);
+    fetch(`${import.meta.env.VITE_MOCKAPI_BASE_URL}/todos`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      // Send your data in the request body as JSON
+      body: JSON.stringify(newTodo),
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
+      .then(fetchTodos);
   };
 
   const handleUpdate = (id, newTodo) => {
-    setTodos((prevTodos) =>
-      prevTodos.map((todo) => (todo.id === id ? newTodo : todo))
-    );
+    fetch(`${import.meta.env.VITE_MOCKAPI_BASE_URL}/todos/${id}`, {
+      method: "PUT",
+      headers: { "content-type": "application/json" },
+      // Send your data in the request body as JSON
+      body: JSON.stringify(newTodo),
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
+      .then(fetchTodos);
   };
 
   const handleDelete = (id) => {
-    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
+    fetch(`${import.meta.env.VITE_MOCKAPI_BASE_URL}/todos/${id}`, {
+      method: "DELETE",
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
+      .then(fetchTodos);
   };
 
   const filterTodos = (todo) => {
