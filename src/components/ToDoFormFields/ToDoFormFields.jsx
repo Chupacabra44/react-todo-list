@@ -1,4 +1,6 @@
 import { PRIORITIES, PRIORITY_DEFAULT } from "../../constants/priorities";
+import { yupResolver } from "@hookform/resolvers/yup";
+import getTodoSchema from "../../schemas/todo";
 import styles from "./ToDoFormFields.module.css";
 
 const ToDoFormFields = ({ todo = {}, show = true, register, errors = {} }) => {
