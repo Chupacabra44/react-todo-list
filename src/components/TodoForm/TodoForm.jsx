@@ -14,7 +14,7 @@ const TodoForm = ({ onCreate }) => {
     reset,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(getTodoSchema()),
+    resolver: yupResolver(getTodoSchema({ isNew: true })),
     defaultValues: {
       description: "",
       deadline: "",
