@@ -14,17 +14,7 @@ const ToDoFormFields = ({ todo = {}, show = true, register, errors = {} }) => {
           autoComplete="off"
           defaultValue={todo.name}
           aria-invalid={!!errors.name}
-          {...register("name", {
-            required: "Name is required",
-            minLength: {
-              value: 3,
-              message: "Name should have min length of 3 characters",
-            },
-            maxLength: {
-              value: 50,
-              message: "Name should have max length of 50 characters",
-            },
-          })}
+          {...register("name")}
         />
         {!!errors.name && (
           <span style={{ fontSize: "10px", color: "red", marginLeft: "5px" }}>
@@ -42,13 +32,7 @@ const ToDoFormFields = ({ todo = {}, show = true, register, errors = {} }) => {
               rows="3"
               defaultValue={todo.description}
               aria-invalid={!!errors.description}
-              {...register("description", {
-                maxLength: {
-                  value: 200,
-                  message:
-                    "Description should have max length of 200 characters",
-                },
-              })}
+              {...register("description")}
             />
             {!!errors.description && (
               <span
@@ -67,12 +51,13 @@ const ToDoFormFields = ({ todo = {}, show = true, register, errors = {} }) => {
                 id="deadline"
                 defaultValue={todo.deadline}
                 aria-invalid={!!errors.deadline}
-                {...register("deadline", {
-                  min: !todo.id && {
-                    value: new Date().toISOString().split("T")[0],
-                    message: "Deadline can't be date in the past",
-                  },
-                })}
+                {...register("deadline")}
+                // {...register("deadline", {
+                //   min: !todo.id && {
+                //     value: new Date().toISOString().split("T")[0],
+                //     message: "Deadline can't be date in the past",
+                //   },
+                // })}
               />
               {!!errors.deadline && (
                 <span
@@ -89,11 +74,7 @@ const ToDoFormFields = ({ todo = {}, show = true, register, errors = {} }) => {
                 defaultValue={todo.priority ?? PRIORITY_DEFAULT}
                 id="priority"
                 aria-invalid={!!errors.priority}
-                {...register("priority", {
-                  validate: (value) =>
-                    Object.keys(PRIORITIES).includes(value) ||
-                    "Priority is not valid value",
-                })}
+                {...register("priority")}
               >
                 {Object.entries(PRIORITIES).map(([key, { label }]) => (
                   <option key={key} value={key}>

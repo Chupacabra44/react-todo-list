@@ -1,7 +1,9 @@
 import { useState } from "react";
-import { PRIORITIES, PRIORITY_DEFAULT } from "../../constants/priorities";
 import { useForm } from "react-hook-form";
+import { PRIORITIES, PRIORITY_DEFAULT } from "../../constants/priorities";
 import ToDoFormFields from "../ToDoFormFields/ToDoFormFields";
+import { yupResolver } from "@hookform/resolvers/yup";
+import getTodoSchema from "../../schemas/todo";
 import styles from "./TodoListItem.module.css";
 
 const TodoListItem = ({ todo, onUpdate, onDelete }) => {
@@ -11,6 +13,7 @@ const TodoListItem = ({ todo, onUpdate, onDelete }) => {
     handleSubmit,
     formState: { errors },
   } = useForm({
+    resolver: yupResolver(getTodoSchema()),
     defaultValues: todo,
   });
 
