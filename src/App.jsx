@@ -1,27 +1,16 @@
+import { useState, useEffect } from "react";
 import TodoForm from "./components/TodoForm/TodoForm";
 import styles from "./App.module.css";
-import { useState, useEffect } from "react";
 import TodoList from "./components/ToDoList/TodoList";
 import TodoFilters from "./components/TodoFilters/TodoFilters";
+import { api } from "./api";
 
 function App() {
   const [todos, setTodos] = useState([]);
   const [filters, setFilters] = useState({});
 
   const fetchTodos = () => {
-    const searchParams = new URLSearchParams(filters).toString();
-    fetch(`${import.meta.env.VITE_MOCKAPI_BASE_URL}todos?${searchParams}`, {
-      method: "GET",
-      headers: { "content-type": "application/json" },
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else if (response.status === 404) {
-          return [];
-        }
-      })
-      .then(setTodos);
+    api.todos.getAll(filters).then(setTodos);
   };
 
   useEffect(() => {
@@ -29,45 +18,15 @@ function App() {
   }, [filters]);
 
   const handleCreate = (newTodo) => {
-    fetch(`${import.meta.env.VITE_MOCKAPI_BASE_URL}todos`, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      // Send your data in the request body as JSON
-      body: JSON.stringify(newTodo),
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-      .then(fetchTodos);
+    api.todos.create(newTodo).then(fetchTodos);
   };
 
   const handleUpdate = (id, newTodo) => {
-    fetch(`${import.meta.env.VITE_MOCKAPI_BASE_URL}todos/${id}`, {
-      method: "PUT",
-      headers: { "content-type": "application/json" },
-      // Send your data in the request body as JSON
-      body: JSON.stringify(newTodo),
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-      .then(fetchTodos);
+    api.todos.update(id, newTodo).then(fetchTodos);
   };
 
   const handleDelete = (id) => {
-    fetch(`${import.meta.env.VITE_MOCKAPI_BASE_URL}todos/${id}`, {
-      method: "DELETE",
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-      .then(fetchTodos);
+    api.todos.delete(id).then(fetchTodos);
   };
 
   return (
