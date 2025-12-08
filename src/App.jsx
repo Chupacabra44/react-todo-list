@@ -2,6 +2,7 @@ import TodoForm from "./components/TodoForm/TodoForm";
 import TodoList from "./components/ToDoList/TodoList";
 import TodoFilters from "./components/TodoFilters/TodoFilters";
 import { useTodos } from "./hooks/todo";
+import Alert from "./components/Alert/Alert";
 import styles from "./App.module.css";
 
 function App() {
@@ -18,6 +19,9 @@ function App() {
         <h2 className={styles.Title}>To-Do App</h2>
       </header>
       <div className={styles.AppContainer}>
+        {!!todos.error.message && (
+          <Alert onClear={todos.error.clear}>{todos.error.message}</Alert>
+        )}
         <TodoForm onCreate={todos.create} />
         <TodoFilters onFilter={todos.filter} />
         <TodoList
